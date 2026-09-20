@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modo Presente — ¿Qué pasa si te quedas?</title>
+<style>
+:root{--bg:#FAF8F0;--ink:#171717;--muted:#6d6d68;--card:#FFFDF6;--pink:#FF66C4;--cyan:#24DFE2;--yellow:#FFDE59;--line:#E4E0D5}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}.wrap{max-width:1100px;margin:auto;padding:0 22px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0}.logo{font-weight:900;letter-spacing:-.05em}.pill{border:1px solid #222;border-radius:99px;padding:8px 12px;font-size:11px;font-weight:800}
+.hero{min-height:78vh;display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:center;padding:60px 0 90px}.eyebrow,.kicker{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}h1{font-size:clamp(58px,9vw,115px);line-height:.84;letter-spacing:-.08em;margin:20px 0 28px}.lead{font-size:20px;line-height:1.4;max-width:600px}.btn{border:0;border-radius:14px;background:var(--cyan);color:#171717;padding:16px 22px;font-weight:900;margin-top:22px}.btn.acid{background:var(--pink);color:var(--ink)}.heroCard{background:var(--ink);color:#fff;border-radius:28px;padding:30px;min-height:310px;display:flex;flex-direction:column;justify-content:space-between}.heroCard .time{font-size:80px;font-weight:900;letter-spacing:-.08em}
+section{padding:85px 0;border-top:1px solid var(--line)}h2{font-size:clamp(40px,6vw,70px);line-height:.9;letter-spacing:-.065em;margin:14px 0 25px}.center{text-align:center}.box{background:var(--card);border:1px solid var(--line);border-radius:30px;padding:clamp(25px,5vw,55px);max-width:850px;margin:auto}.small{color:var(--muted);line-height:1.55}.screen{display:none}.screen.active{display:block}.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:28px 0}.choice{border:1px solid var(--line);background:var(--card);border-radius:15px;padding:18px;text-align:left}.choice.sel{outline:3px solid var(--pink);background:#EFFFFF}.timer{font-size:clamp(75px,15vw,150px);font-weight:900;letter-spacing:-.09em;margin:28px 0}.days{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:30px}.day{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:16px;min-height:125px}.day b{font-size:11px;text-transform:uppercase}.day p{font-size:13px;color:var(--muted);line-height:1.3}.day.done{background:var(--pink);color:#111}.day.done p{color:#333}.day.locked{opacity:.45}.bar{height:11px;background:#E8E3D7;border-radius:99px;overflow:hidden;margin:25px 0 10px}.fill{height:100%;width:0;background:var(--pink);transition:.4s}.reward{background:var(--pink);color:#171717;border-radius:30px;padding:45px;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}.rewardCard{background:var(--yellow);color:#171717;border-radius:20px;padding:25px}.rewardCard p{color:var(--muted)}footer{text-align:center;padding:80px 0}.final{font-size:clamp(32px,5vw,62px);font-weight:900;letter-spacing:-.06em;line-height:.95;max-width:850px;margin:auto}.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,130px);background:#171717;color:#fff;padding:13px 18px;border-radius:99px;transition:.3s;z-index:5}.toast.show{transform:translate(-50%,0)}
+@media(max-width:760px){.hero,.reward{grid-template-columns:1fr}.hero{padding-top:30px}.choices{grid-template-columns:1fr}.days{grid-template-columns:1fr 1fr}.day:last-child{grid-column:span 2}.heroCard{min-height:220px}.reward{padding:28px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><div class="logo">MODO PRESENTE</div><div class="pill">20 MIN × 7 DÍAS</div></nav>
+
+<div class="hero">
+<div><div class="eyebrow">Una experiencia para estudiantes</div><h1>¿Qué pasa si te quedas?</h1><p class="lead">20 minutos. Un momento incómodo. Tú decides qué hacer con él.</p><button class="btn acid" onclick="go('experience')">ME ATREVO ↓</button></div>
+<div class="heroCard"><div class="eyebrow" style="color:#4f4f4f">El desafío</div><div class="time">20:00</div><div>No se trata de dejar tu celular.<br><b>Se trata de elegir.</b></div></div>
+</div>
+
+<section id="experience">
+<div class="box">
+<div id="s1" class="screen active center"><div class="kicker">Estás en uno de esos momentos</div><h2>¿Te quedas?</h2><p class="small">No tienes que hacer nada especial.<br>Solo prueba qué pasa si esta vez decides quedarte.</p><strong style="font-size:27px">20 MINUTOS.</strong><br><button class="btn acid" onclick="screen(2)">ME ATREVO</button></div>
+
+<div id="s2" class="screen"><div class="kicker">Antes de empezar</div><h2>¿Cómo quieres vivir estos 20 minutos?</h2><div class="choices">
+<button class="choice" onclick="pick(this)">◯ Pausar notificaciones</button><button class="choice" onclick="pick(this)">◯ Activar modo de concentración</button><button class="choice" onclick="pick(this)">◯ Dejar el teléfono como está</button><button class="choice" onclick="pick(this)">◯ Apagar el teléfono</button></div><button class="btn" onclick="start()">COMENZAR</button></div>
+
+<div id="s3" class="screen center"><div class="kicker">Tu pausa está activa</div><div class="timer" id="timer">20:00</div><p class="small">Haz lo que quieras durante estos 20 minutos.<br>No hay una actividad obligatoria.</p><b>Tú decides cómo vivir este momento.</b></div>
+
+<div id="s4" class="screen center"><div class="kicker">20 minutos completados</div><h2>¿Y?</h2><p class="small" style="font-size:20px">Se pasaron 20 minutos.<br>Y estuviste ahí.</p><strong style="font-size:24px">20 MINUTOS ✓</strong><br><button class="btn acid" onclick="dayDone()">SÍ, MAÑANA VUELVO</button></div>
+
+<div id="s5" class="screen center"><div class="kicker">Desafío iniciado</div><h2>¡Día 1 listo!</h2><p class="small">Mañana vuelve a escanear un afiche y continúa el desafío.</p><button class="btn" onclick="go('days')">VER MI PROGRESO ↓</button></div>
+</div></section>
+
+<section id="days"><div class="kicker">Tu recorrido</div><h2>20 minutos × 7 días</h2><p class="lead">No es una competencia. Es un pequeño registro de esos momentos que normalmente llenamos.</p><div class="bar"><div class="fill" id="fill"></div></div><b id="count">0/7 días completados</b>
+<div class="days">
+<div class="day" id="d1"><b>Día 1 · Esperar</b><p>Hoy simplemente esperaste.</p></div><div class="day locked"><b>Día 2 · Silencio</b><p>Hoy dejaste que el silencio existiera.</p></div><div class="day locked"><b>Día 3 · Ascensor</b><p>Hoy compartiste un ascensor sin buscar una excusa.</p></div><div class="day locked"><b>Día 4 · Estar solo</b><p>Hoy estuviste contigo.</p></div><div class="day locked"><b>Día 5 · Conversación</b><p>Hoy una mirada terminó en conversación.</p></div><div class="day locked"><b>Día 6 · Pausa</b><p>Hoy no necesitaste llenar el momento.</p></div><div class="day locked"><b>Día 7 · Tú decides</b><p>7 días. 140 minutos. Tú decidiste qué hacer con ellos.</p></div>
+</div></section>
+
+<section><div class="reward"><div><div class="kicker" style="color:#4f4f4f">Recompensa</div><h2>Lo hiciste.</h2><p style="color:#303030;line-height:1.5">Completa los 7 días para desbloquear una recompensa digital.</p></div><div class="rewardCard"><h3>🔒 Recompensa bloqueada</h3><p>Al completar 7/7 días podrás canjear una Red Bull a elección o un producto de las tiendas de comida de la universidad.</p><button class="btn" id="reward" disabled style="opacity:.45" onclick="redeem()">CANJEAR RECOMPENSA</button></div></div></section>
+
+<footer><div class="final">NO TODO MOMENTO NECESITA SER LLENADO.</div><p class="small">No se trataba de dejar tu celular. Se trataba de elegir.</p></footer>
+</div><div class="toast" id="toast"></div>
+
+<script>
+let secs=1200, int=null, done=0;
+function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+function screen(n){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById('s'+n).classList.add('active');go('experience')}
+function pick(el){document.querySelectorAll('.choice').forEach(x=>x.classList.remove('sel'));el.classList.add('sel')}
+function start(){screen(3);secs=1200;tick();clearInterval(int);int=setInterval(()=>{secs--;tick();if(secs<=0){clearInterval(int);screen(4)}},1000)}
+function tick(){let m=Math.floor(secs/60),s=secs%60;document.getElementById('timer').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
+function dayDone(){done=Math.max(done,1);update();screen(5);toast('Día 1 completado ✓')}
+function update(){document.getElementById('fill').style.width=(done/7*100)+'%';document.getElementById('count').textContent=done+'/7 días completados';document.getElementById('d1').classList.add('done')}
+function redeem(){toast('¡Recompensa desbloqueada! 🎉')}
+function toast(t){let x=document.getElementById('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),2300)}
+</script>
+</body>
+</html>
